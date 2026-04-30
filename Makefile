@@ -1,8 +1,10 @@
-.PHONY: linux init
+.PHONY: init
 
 init:
 	./scripts/init.sh
 	./scripts/init/*.sh
 
-linux:
-	./scripts/build/linux.sh
+initramfs:
+	./scripts/build/initramfs.sh
+	./scripts/build/initramfs/*.sh
+	./scripts/build/compress_initramfs.sh

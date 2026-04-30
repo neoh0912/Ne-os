@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DIR=$PWD/build/initramfs
+DIR=$PWD/.build/initramfs
 BACK=$PWD
 
 cd $DIR/bin
