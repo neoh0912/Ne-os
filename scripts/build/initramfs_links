@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+ROOT=$PWD/.build/initramfs
+DIR=$PWD
+
+cd $ROOT/bin
+ln -s bash sh
+cd $DIR

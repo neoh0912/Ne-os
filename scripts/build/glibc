@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+OUTPUT_DIR=$PWD/.build/glibc
+BUILD_DIR=$PWD/.build/glibc_build
+SOURCE_DIR=$PWD/src/glibc-2.43
+HEADERS=$PWD/src/glibc-2.43_headers
+DIR=$PWD
+
+if [ "$1" != "--skip-compiling" ]
+    then
+
+rm -frd $BUILD_DIR
+
+mkdir -p $BUILD_DIR
+mkdir $BUILD_DIR/install
+
+cd $BUILD_DIR
+
+$SOURCE_DIR/configure \
+  --prefix=/usr \
+  --libdir=/lib \
+  --enable-kernel=7.0.0 \
+  --with-headers=$HEADERS \
+  --disable-nscd \
+  --disable-build-nscd \
+  --disable-profile \
+  --disable-timezone-tools \
+  --disable-crypt \
+  --without-gd \
+  --without-selinux \
+  --disable-nls \
+  --disable-mathvec \
+  --enable-stack-protector=strong \
+  --disable-werror
+
+make PARALLELMFLAGS=-j$(nproc --all)
+make PARALLELMFLAGS=-j$(nproc --all) install DESTDIR=$OUTPUT_DIR
+
+cd $DIR
+
+    fi
+
+rm -frd $BUILD_DIR
+

@@ -1,22 +1,48 @@
-.PHONY: init build clean
+.PHONY: build clean
 
-init:
-	./scripts/init.sh
-	./scripts/init/*.sh
+VPATH = src:.build/initramfs
+
+LDFLAGS = -L./.build/initramfs/lib
+
+OBJECTS = /lib/libstring.so /lib/libio.so \
+		 /bin/program \
+		 /bin/cd \
+		 /bin/ls \
+		 /init
 
 
-build:
-	./scripts/build/initramfs.sh
-	./scripts/build/initramfs/*.sh
 
-	gcc -c -fPIC src/lib/string.c -o src/lib/string.o
-	gcc -shared -o .build/initramfs/lib/libstring.so src/lib/string.o
 
-	gcc -c -fPIC src/lib/io.c -L./.build/initramfs/lib -lstring -o src/lib/io.o
-	gcc -shared -o .build/initramfs/lib/libio.so src/lib/io.o
+build: initramfs.cpio.gz
 
-	gcc src/bin/program.c -L./.build/initramfs/lib -lc -lio -lstring -o .build/initramfs/bin/program
-	./scripts/build/compress_initramfs.sh
+
+initramfs.cpio.gz: $(OBJECTS)
+	./scripts/build/initramfs_links
+	./scripts/build/compress_initramfs
+
+
+$(OBJECTS) : .build/initramfs
+
+/bin/cd:
+	$(CC) src/bin/cd.c $(LDFLAGS) -lc -o .build/initramfs/bin/cd
+
+/bin/ls:
+	$(CC) src/bin/ls.c $(LDFLAGS) -lc -o .build/initramfs/bin/ls
+
+/bin/program:
+	$(CC) src/bin/program.c $(LDFLAGS) -lc -o .build/initramfs/bin/program
+
+/lib/libstring.so:
+	$(CC) -c -fPIC src/lib/string.c -o src/lib/string.o
+	$(CC) -shared -o .build/initramfs/lib/libstring.so src/lib/string.o
+
+/init:
+	$(CC) src/init.c $(LDFLAGS) -lc -o .build/initramfs/init
+
+.build/initramfs:
+	./scripts/build/initramfs
+
+
 
 clean:
 	rm -fdr .build/initramfs
