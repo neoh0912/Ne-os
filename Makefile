@@ -4,9 +4,9 @@ LDFLAGS = -L./.build/initramfs/lib -I./include -lc -lutils
 
 OBJECTS = lib/libstring.so \
 		 lib/libutils.so \
+		 lib/libdynamic.so \
 	     bin/cat bin/mount \
 		 bin/cd bin/ls \
-		 bin/program \
 		 init
 
 
@@ -33,15 +33,7 @@ $(OBJECTS) : .build/initramfs
 
 bin/mount: lib/libutils.so
 
-bin/cat:
-
-bin/cd:
-
-bin/ls: lib/libutils.so
-
-bin/program:
-
-lib/libutils.so:
+bin/ls: lib/libutils.so lib/libdynamic.so
 
 init:
 	$(CC) src/init.c $(LDFLAGS) -lc -o .build/initramfs/init
