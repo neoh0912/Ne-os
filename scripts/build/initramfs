@@ -14,5 +14,4 @@ cp -a $PWD/initramfs/. $ROOT/
 mkdir -p $ROOT/{bin,boot,dev,etc,lib,mnt,opt,proc,root,run,sbin,sys,usr,var}
 mkdir -p $ROOT/usr/{bin,include,lib,libexec,local,sbin,share,src}
 
-cp $GLIBC/lib/{libc.so*,libm.so*,libdl.so*,libpthread.so*} $ROOT/lib
-cp $GLIBC/lib64/ld-linux-x86-64.so* $ROOT/lib
+cp $GLIBC/lib64/{libc.so.6,libm.so.6,libdl.so.2,libpthread.so.0,ld-linux-x86-64.so.2} $ROOT/lib
