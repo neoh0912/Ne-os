@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <sys/types.h>
 #include <dirent.h>
@@ -9,6 +8,8 @@
 
 #include <utils.h>
 #include <string.h>
+
+#include <dynamic.h>
 
 
 int print_dir(char *s_dir) {
