@@ -24,6 +24,7 @@ void dynamic_insert(DYNAMIC **p_dynamic, void *element);
 void *dynamic_get(DYNAMIC *p_dynamic, size_t idx);
 
 void dynamic_shrink_to_fit(DYNAMIC **p_dynamic);
+void dynamic_resize(DYNAMIC **i_dynamic,size_t size);
 
 void dynamic_free(DYNAMIC *p_dynamic);
 

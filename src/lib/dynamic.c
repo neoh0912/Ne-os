@@ -5,6 +5,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+auto min(auto a,auto b) {
+  if (a < 
+  return 
+}
+
 DYNAMIC *dynamic(size_t element_size, size_t initial_capacity) {
   if (element_size < 1 || element_size == 0)
     return NULL;
@@ -32,7 +37,7 @@ void dynamic_grow(DYNAMIC **i_dynamic) {
   if (p_dynamic->length == p_dynamic->capacity) {
     p_dynamic->size *= 2;
     p_dynamic->capacity *= 2;
-    DYNAMIC * n_dynamic = realloc(p_dynamic, sizeof(DYNAMIC) + p_dynamic->size);
+    DYNAMIC *n_dynamic = realloc(p_dynamic, sizeof(DYNAMIC) + p_dynamic->size);
     *i_dynamic = n_dynamic;
     p_dynamic = n_dynamic;
   }
@@ -63,8 +68,29 @@ void dynamic_shrink_to_fit(DYNAMIC **i_dynamic) {
 
   p_dynamic->capacity = p_dynamic->length;
   p_dynamic->size = p_dynamic->element_size * p_dynamic->length;
-  p_dynamic = realloc(p_dynamic, p_dynamic->size);
+  p_dynamic = realloc(p_dynamic, sizeof(DYNAMIC) + p_dynamic->size);
   *i_dynamic = p_dynamic;
+  return;
+}
+
+void dynamic_resize(DYNAMIC **i_dynamic, size_t size) {
+  DYNAMIC *p_dynamic = *i_dynamic;
+  if (p_dynamic->capacity == size)
+    return;
+
+  if (size == 0) {
+    dynamic_free(p_dynamic);
+    return;
+  }
+
+  p_dynamic->capacity = size;
+  p_dynamic->length = min(p_dynamic->length, size);
+
+  p_dynamic->size = p_dynamic->length * p_dynamic->element_size;
+  p_dynamic = realloc(p_dynamic, sizeof(DYNAMIC) + p_dynamic->size);
+
+  *i_dynamic = p_dynamic;
+
   return;
 }
 
