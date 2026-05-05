@@ -5,10 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-auto min(auto a,auto b) {
-  if (a < 
-  return 
-}
+#include <utils.h>
 
 DYNAMIC *dynamic(size_t element_size, size_t initial_capacity) {
   if (element_size < 1 || element_size == 0)

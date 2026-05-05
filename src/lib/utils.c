@@ -23,13 +23,3 @@ int count_initial_flags(int argc, char **argv) {
   return count;
 }
 
-int max(int a, int b) {
-  if (a > b)
-    return a;
-  return b;
-}
-int min(int a, int b) {
-  if (a > b)
-    return b;
-  return a;
-}

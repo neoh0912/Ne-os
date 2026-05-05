@@ -31,6 +31,8 @@ initramfs.cpio.gz: $(OBJECTS)
 
 $(OBJECTS) : .build/initramfs
 
+lib/dynamic.so: lib/libutils.so
+
 bin/mount: lib/libutils.so
 
 bin/ls: lib/libutils.so lib/libdynamic.so
