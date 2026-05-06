@@ -1,10 +1,11 @@
 VPATH = src:.build/initramfs/
 
-LDFLAGS = -L./.build/initramfs/lib -I./include -lc -lutils -ldynamic
+LDFLAGS = -L./.build/initramfs/lib -I./include -lc -lutils -ldynamic -lbuffer
 
 OBJECTS = lib/libstring.so \
 		 lib/libutils.so \
 		 lib/libdynamic.so \
+		 lib/libbuffer.so \
 	     bin/cat bin/mount \
 		 bin/cd bin/ls \
 		 init

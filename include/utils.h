@@ -3,8 +3,9 @@
 
 void print_args(int argc, char **argv);
 int count_initial_flags(int argc, char **argv);
+char *concat_path(const char *s1, const char *s2, char *buf);
 
-#define max(x,y) ((x) > (y) ? (x) : (y))
-#define min(x,y) ((x) < (y) ? (x) : (y))
+#define max(x, y) ((x) > (y) ? (x) : (y))
+#define min(x, y) ((x) < (y) ? (x) : (y))
 
 #endif

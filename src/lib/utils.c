@@ -1,5 +1,6 @@
 #include <stdio.h>
-
+#include <stdlib.h>
+#include <string.h>
 #include <utils.h>
 
 void print_args(int argc, char **argv) {
@@ -23,3 +24,17 @@ int count_initial_flags(int argc, char **argv) {
   return count;
 }
 
+char *concat_path(const char *s1, const char *s2, char *buf) {
+  char *result;
+  size_t len = strlen(s1);
+  if (buf == NULL)
+    result = malloc(len + strlen(s2) + 2);
+  else
+    result = realloc(buf, len + strlen(s2) + 2);
+  strcpy(result, s1);
+  if ((s1[len - 1] != '/') && (s2[0] != '/') && (len != 0)) {
+    strcat(result, "/");
+  }
+  strcat(result, s2);
+  return result;
+}
